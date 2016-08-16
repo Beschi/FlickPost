@@ -1,82 +1,123 @@
 package model;
 
+import java.util.List;
+
 public class FeedItem {
-    private int id;
-    private String name, status, image, profilePic, timeStamp, url;
- 
-    public FeedItem() {
-    }
- 
-    public FeedItem(int id, String name, String image, String status,
-            String profilePic, String timeStamp, String url) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.image = image;
-        this.status = status;
-        this.profilePic = profilePic;
-        this.timeStamp = timeStamp;
-        this.url = url;
-    }
- 
-    public int getId() {
-        return id;
-    }
- 
-    public void setId(int id) {
-        this.id = id;
-    }
- 
-    public String getName() {
-        return name;
-    }
- 
-    public void setName(String name) {
-        this.name = name;
-    }
- 
-    public String getImge() {
-        return image;
-    }
- 
-    public void setImge(String image) {
-        this.image = image;
-    }
- 
-    public String getStatus() {
-        return status;
-    }
- 
-    public void setStatus(String status) {
-        this.status = status;
-    }
- 
-    public String getProfilePic() {
-        return profilePic;
-    }
- 
-    public void setProfilePic(String profilePic) {
-        this.profilePic = profilePic;
-    }
- 
-    public String getTimeStamp() {
-        return timeStamp;
-    }
- 
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
-    }
- 
-    public String getUrl() {
-        return url;
-    }
- 
-    public void setUrl(String url) {
-        this.url = url;
+    private String rowId;
+    private String shareRowId;
+    private String title;
+    private String avatar;
+    private String message;
+    private String createdBy;
+    private String createdDate;
+    private boolean status;
+    private boolean showComment;
+    private List postComments;
+    private List<GalleryItem> postGallaries;
+    private List<StatusType> statusTypes;
+    private String selectedEmoji;
+
+    public String getRowId() {
+        return rowId;
     }
 
-    @Override
-    public String toString() {
-        return "Name :"+getName();
+    public void setRowId(String rowId) {
+        this.rowId = rowId;
+    }
+
+    public String getShareRowId() {
+        return shareRowId;
+    }
+
+    public void setShareRowId(String shareRowId) {
+        this.shareRowId = shareRowId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public boolean isShowComment() {
+        return showComment;
+    }
+
+    public void setShowComment(boolean showComment) {
+        this.showComment = showComment;
+    }
+
+    public List getPostComments() {
+        return postComments;
+    }
+
+    public void setPostComments(List postComments) {
+        this.postComments = postComments;
+    }
+
+    public List<GalleryItem> getPostGallaries() {
+        return postGallaries;
+    }
+
+    public void setPostGallaries(List<GalleryItem> postGallaries) {
+        this.postGallaries = postGallaries;
+    }
+
+    public List<StatusType> getStatusTypes() {
+        return statusTypes;
+    }
+
+    public void setStatusTypes(List<StatusType> statusTypes) {
+        this.statusTypes = statusTypes;
+    }
+
+    public String getSelectedEmoji() {
+        return selectedEmoji;
+    }
+
+    public void setSelectedEmoji(String selectedEmoji) {
+        this.selectedEmoji = selectedEmoji;
     }
 }

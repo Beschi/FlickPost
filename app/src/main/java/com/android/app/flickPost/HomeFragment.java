@@ -1,6 +1,7 @@
 package com.android.app.flickPost;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,9 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.android.volley.Cache;
 import com.android.volley.Request;
@@ -28,26 +26,27 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Helper.LazyLoader;
 import adapter.FeedAdapter;
 import app.AppController;
 import model.FeedItem;
 
-import static com.android.volley.VolleyLog.TAG;
+import static Helper.EndlessRecyclerOnScrollListener.TAG;
+
 
 /**
  * Created by Developer on 13/5/2016.
  */
 public class HomeFragment extends Fragment {
-    private static final String STARTING_TEXT = "Four Buttons Bottom Navigation";
-    List<FeedItem> feedItems = new ArrayList<FeedItem>();
-    FeedAdapter feedAdapter = new FeedAdapter(feedItems);
-    private String URL_FEED = "http://api.androidhive.info/feed/feed.json";
+    private RecyclerView rcv;
+    private FeedAdapter feedAdapter;
+    private LinearLayoutManager llm;
+    private List<FeedItem> feedItems = new ArrayList<>();
     public HomeFragment() {
     }
 
     public static HomeFragment newInstance(String text) {
         Bundle args = new Bundle();
-        args.putString(STARTING_TEXT, text);
 
         HomeFragment sampleFragment = new HomeFragment();
         sampleFragment.setArguments(args);
@@ -59,18 +58,91 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home,container, false);
-        Log.d("Simple","On Create View");
-
-        RecyclerView myView =  (RecyclerView)view.findViewById(R.id.feedView);
-        myView.setHasFixedSize(true);
-        myView.setAdapter(feedAdapter);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        rcv  =  (RecyclerView)view.findViewById(R.id.feedView);
+        rcv.setHasFixedSize(true);
+        //--------------------------------------------------------------------
+        fetchFreshData("4040",1,0);
+        /*for (int i = 0; i < 30; i++) {
+            FeedItem user = new FeedItem();
+            user.setTitle("Name " + i);
+            feedItems.add(user);
+        }*/
+        //---------------------------------------------------------------
+        llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        myView.setLayoutManager(llm);
+        rcv.setLayoutManager(llm);
+        feedAdapter = new FeedAdapter(rcv, feedItems);
+        rcv.setAdapter(feedAdapter);
+        feedAdapter.notifyDataSetChanged();
+        feedAdapter.setLazyLoader(new LazyLoader() {
+            @Override
+            public void onLoad() {
+                Log.e("haint", "Load More");
+                feedItems.add(null);
+                feedAdapter.notifyItemInserted(feedItems.size() - 1);
 
+                //Load more data for reyclerview
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.e("haint", "Load More 2");
+
+                        //Remove loading item
+                        feedItems.remove(feedItems.size() - 1);
+                        feedAdapter.notifyItemRemoved(feedItems.size());
+
+                        //Load data
+                        int index = feedItems.size();
+                        index = index/10;
+                       // fetchFreshData("4040",index,0);
+                        /*int end = index + 20;
+                        for (int i = index; i < end; i++) {
+                            FeedItem fi = new FeedItem();
+                            fi.setTitle("Name " + i);
+                            feedItems.add(fi);
+                        }*/
+                       // feedAdapter.notifyDataSetChanged();
+                        feedAdapter.setLoaded();
+                    }
+                }, 5000);
+            }
+        });
+        return view;
+    }
+    /**
+     * Parsing json response and passing the data to feed view list adapter
+     * */
+    private void parseJsonFeed(JSONObject response) {
+        Log.d("Simple 1","Received Response"+response);
+        try {
+            JSONArray feedArray = response.getJSONArray("feed");
+
+            for (int i = 0; i < feedArray.length(); i++) {
+                JSONObject feedObj = (JSONObject) feedArray.get(i);
+                FeedItem item = new FeedItem();
+                item.setTitle(feedObj.getString("name"));
+
+                feedItems.add(item);
+            }
+            // notify data changes to list adapater
+            feedAdapter.notifyDataSetChanged();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     * @param userId
+     * @param index
+     * @param isTimeline
+     */
+    private  void fetchFreshData(String userId, int index, int isTimeline){
+        final String url = "http://flickpost.net/api/feeds/getFeeds/"+userId+"/"+index+"/"+isTimeline;
+        Log.d("Info","URL :"+url);
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
-        Cache.Entry entry = cache.get(URL_FEED);
+        Cache.Entry entry = cache.get(url);
         if (entry != null) {
             // fetch the data from cache
             try {
@@ -87,63 +159,30 @@ public class HomeFragment extends Fragment {
         } else {
             // making fresh volley request and getting json
             JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.GET,
-                    URL_FEED, null, new Response.Listener<JSONObject>() {
+                    url, null, new Response.Listener<JSONObject>() {
 
                 @Override
                 public void onResponse(JSONObject response) {
                     VolleyLog.d(TAG, "Response: " + response.toString());
+
                     if (response != null) {
                         parseJsonFeed(response);
                     }
                 }
             }, new Response.ErrorListener() {
 
+
                 @Override
                 public void onErrorResponse(VolleyError error) {
+
+                    Log.d("sdfd",error.toString());
+
                     VolleyLog.d(TAG, "Error: " + error.getMessage());
                 }
             });
 
             // Adding request to volley request queue
             AppController.getInstance().addToRequestQueue(jsonReq);
-        }
-
-        return view;
-    }
-    /**
-     * Parsing json reponse and passing the data to feed view list adapter
-     * */
-    private void parseJsonFeed(JSONObject response) {
-        Log.d("Simple 1","Received Response"+response);
-        try {
-            JSONArray feedArray = response.getJSONArray("feed");
-
-            for (int i = 0; i < feedArray.length(); i++) {
-                JSONObject feedObj = (JSONObject) feedArray.get(i);
-
-                FeedItem item = new FeedItem();
-                item.setId(feedObj.getInt("id"));
-                item.setName(feedObj.getString("name"));
-
-                // Image might be null sometimes
-                String image = feedObj.isNull("image") ? null : feedObj
-                        .getString("image");
-                item.setImge(image);
-                item.setStatus(feedObj.getString("status"));
-                item.setProfilePic(feedObj.getString("profilePic"));
-                item.setTimeStamp(feedObj.getString("timeStamp"));
-
-                // url might be null sometimes
-                String feedUrl = feedObj.isNull("url") ? null : feedObj
-                        .getString("url");
-                item.setUrl(feedUrl);
-
-                feedItems.add(item);
-            }
-            // notify data changes to list adapater
-            feedAdapter.notifyDataSetChanged();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 }
