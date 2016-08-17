@@ -68,13 +68,13 @@ public class FriendFragment extends Fragment {
         LinearLayoutManager mLayoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(mLayoutManager) {
+       /* recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(mLayoutManager) {
             @Override
             public void onLoadMore(int current_page) {
                 Log.d("onLoadMore : ",Integer.toString(current_page));
                 loadMoreData(current_page);
             }
-        });
+        });*/
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(friendAdapter);
