@@ -1,7 +1,6 @@
 package com.android.app.flickPost;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,12 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.volley.Cache;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Helper.EndlessRecyclerOnScrollListener;
-import Helper.LazyLoader;
 import adapter.FeedAdapter;
 import app.AppController;
 import model.FeedItem;
@@ -140,6 +135,8 @@ public class HomeFragment extends Fragment {
                 JSONObject feedObj = response.getJSONObject(i);
                 FeedItem item = new FeedItem();
                 item.setTitle(feedObj.getString("title"));
+                item.setAvatar(feedObj.getString("avatar"));
+                item.setCreatedDate(feedObj.getString("createdDate"));
                 feedItems.add(item);
             }
             // notify data changes to list adapater
