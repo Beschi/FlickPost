@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
     private FeedAdapter feedAdapter;
     private LinearLayoutManager llm;
     private List<FeedItem> feedItems = new ArrayList<>();
+    private String USER_ID="4030";
     public HomeFragment() {
     }
 
@@ -56,7 +57,7 @@ public class HomeFragment extends Fragment {
 
         RecyclerView rvItems = (RecyclerView)view.findViewById(R.id.feedView);
 
-        fetchFreshData("4040",0,0);
+        fetchFreshData(USER_ID,0,0);
         feedAdapter = new FeedAdapter(feedItems);
         rvItems.setAdapter(feedAdapter);
         feedAdapter.notifyDataSetChanged();
@@ -68,7 +69,7 @@ public class HomeFragment extends Fragment {
         rvItems.addOnScrollListener(new EndlessRecyclerOnScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                fetchFreshData("4040",page,0);
+                fetchFreshData(USER_ID,page,0);
                 int curSize = feedAdapter.getItemCount();
                 //allContacts.addAll(moreContacts);
                 feedAdapter.notifyItemRangeInserted(curSize, feedItems.size() - 1);
@@ -86,7 +87,7 @@ public class HomeFragment extends Fragment {
     private  void fetchFreshData(String userId, int index, int isTimeline){
 
         final String url = "http://flickpost.net/api/feeds/getFeeds/"+userId+"/"+index+"/"+isTimeline;
-        Log.d("Info","URL :"+url);
+        Log.d("Info","(fetchFreshData)Get Feed :"+url);
 
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
@@ -129,7 +130,7 @@ public class HomeFragment extends Fragment {
      * Parsing json response and passing the data to feed view list adapter
      * */
     private void parseJsonFeed(JSONArray response) {
-        Log.d("Simple 1","Received Response"+response);
+        Log.d("Feeds","Received Response"+response);
         try {
             for (int i = 0; i < response.length(); i++) {
                 JSONObject feedObj = response.getJSONObject(i);
@@ -137,6 +138,13 @@ public class HomeFragment extends Fragment {
                 item.setTitle(feedObj.getString("title"));
                 item.setAvatar(feedObj.getString("avatar"));
                 item.setCreatedDate(feedObj.getString("createdDate"));
+                item.setMessage(feedObj.getString("message"));
+
+                JSONArray gallary = feedObj.getJSONArray("PostGallaries");
+                for (int j=0;j<gallary.length();j++) {
+                    JSONObject picObj = gallary.getJSONObject(j);
+                    item.setPicName(picObj.getString("picName"));
+                }
                 feedItems.add(item);
             }
             // notify data changes to list adapater

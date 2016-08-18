@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/feed_card"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     card_view:cardCornerRadius="0dp"
     android:layout_margin="5dp">
 
@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="12dp">
-
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/profilePic"
             android:layout_width="50dp"
@@ -20,7 +19,6 @@
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,16 +29,33 @@
             android:textStyle="bold"
             android:paddingLeft="5dp"
             android:textSize="15dp"/>
-
-          <TextView
-           android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/date_time"
-              android:paddingLeft="5dp"
-              android:text="Just now"
+            android:paddingLeft="5dp"
+            android:text="Just now"
             android:layout_toRightOf="@+id/profilePic"
             android:layout_below="@+id/title" />
 
+        <TextView
+            android:id="@+id/status_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profilePic"
+            android:maxLines="3"
+            android:padding="8dp"
+            android:text="#Flickpost"
+            android:textColor="#666"
+            android:textSize="14dp" />
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/picName"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/status_msg"
+            android:scaleType="centerCrop" />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

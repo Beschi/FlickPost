@@ -16,6 +16,16 @@ public class FeedItem {
     private List<GalleryItem> postGallaries;
     private List<StatusType> statusTypes;
     private String selectedEmoji;
+    private String picName;
+
+    public String getPicName() {
+        return picName;
+    }
+
+    public void setPicName(String feedPic) {
+        this.picName = feedPic;
+    }
+
 
     public String getRowId() {
         return rowId;

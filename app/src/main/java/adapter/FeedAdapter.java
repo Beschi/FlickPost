@@ -14,10 +14,14 @@ import com.android.app.flickPost.R;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
+import org.w3c.dom.Text;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import app.AppController;
 import model.FeedItem;
@@ -44,7 +48,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         public NetworkImageView avatar;
         public TextView timeAgo;
         public ImageLoader imageLoader = AppController.getInstance().getImageLoader();
-
+        public ImageLoader picLoader = AppController.getInstance().getImageLoader();
+        public TextView message;
+        public NetworkImageView picName;
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
         public ViewHolder(View itemView) {
@@ -55,9 +61,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             if (imageLoader == null)
                 imageLoader = AppController.getInstance().getImageLoader();
 
+            if(picLoader==null){
+                picLoader= AppController.getInstance().getImageLoader();
+            }
             title = (TextView) itemView.findViewById(R.id.title);
             avatar = (NetworkImageView) itemView.findViewById(R.id.profilePic);
             timeAgo = (TextView)itemView.findViewById(R.id.date_time);
+            message = (TextView)itemView.findViewById(R.id.status_msg);
+            picName = (NetworkImageView) itemView.findViewById(R.id.picName);
         }
     }
 
@@ -80,33 +91,68 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             textView.setText(feed.getTitle());
 
             TextView timeAgo=viewHolder.timeAgo;
-            timeAgo.setText(getDate(feed.getCreatedDate()));
+            String sTimeAgo = getDate(feed.getCreatedDate());
+            timeAgo.setText(sTimeAgo);
             // user profile pic
             ImageLoader imageLoader = viewHolder.imageLoader;
             NetworkImageView avatar= viewHolder.avatar;
             avatar.setImageUrl(feed.getAvatar(), imageLoader);
+
+            TextView txtMsg=viewHolder.message;
+            String status = feed.getMessage();
+            if(status!=null && status!="null") {
+                txtMsg.setText(feed.getMessage());
+            }
+            else {
+                txtMsg.setVisibility(View.GONE);
+            }
+            //feed image
+            ImageLoader feedLoader = viewHolder.picLoader;
+            NetworkImageView picName= viewHolder.picName;
+            String pic = feed.getPicName();
+            if(pic!=null && pic!="null") {
+                picName.setImageUrl(feed.getPicName(), feedLoader);
+            }
+            else{
+                picName.setVisibility(View.GONE);
+            }
         }
     }
 
     private String getDate(String OurDate)
     {
-        try
-        {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-            Date value = formatter.parse(OurDate);
-
-            SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy HH:mm"); //this format changeable
-            dateFormatter.setTimeZone(TimeZone.getDefault());
-            OurDate = dateFormatter.format(value);
-
-            //Log.d("OurDate", OurDate);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date value = null;
+        try {
+            value = formatter.parse(OurDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        catch (Exception e)
-        {
-            OurDate = "00-00-0000 00:00";
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss aa");
+        dateFormatter.setTimeZone(TimeZone.getDefault());
+        String dt = dateFormatter.format(value);
+
+        CharSequence timeAgo = DateUtils.getRelativeTimeSpanString(
+                value.getTime(),
+                System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
+        return dt;
+    }
+
+    public static long getDateInMillis(String srcDate) {
+        SimpleDateFormat desiredFormat = new SimpleDateFormat("d MMMM yyyy, hh:mm aa");
+
+        long dateInMillis = 0;
+        try {
+            Date date = desiredFormat.parse(srcDate);
+            dateInMillis = date.getTime();
+            return dateInMillis;
+        } catch (ParseException e) {
+            //Log.d("Exception while parsing date. " + e.getMessage());
+            e.printStackTrace();
         }
-        return OurDate;
+
+        return 0;
     }
 
     @Override
