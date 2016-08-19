@@ -101,6 +101,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             TextView txtMsg=viewHolder.message;
             String status = feed.getMessage();
             if(status!=null && status!="null") {
+                txtMsg.setVisibility(View.VISIBLE);
                 txtMsg.setText(feed.getMessage());
             }
             else {
@@ -111,6 +112,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             NetworkImageView picName= viewHolder.picName;
             String pic = feed.getPicName();
             if(pic!=null && pic!="null") {
+                picName.setVisibility(View.VISIBLE);
                 picName.setImageUrl(feed.getPicName(), feedLoader);
             }
             else{
