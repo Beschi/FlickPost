@@ -9,16 +9,17 @@
     android:layout_margin="5dp">
 
     <RelativeLayout
+        android:id="@+id/layout_feeds"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="12dp">
+        android:layout_height="match_parent">
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/profilePic"
             android:layout_width="50dp"
             card_view:cardCornerRadius="5dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:layout_margin="12dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,13 +28,12 @@
             android:layout_toRightOf="@+id/profilePic"
             android:layout_alignParentTop="true"
             android:textStyle="bold"
-            android:paddingLeft="5dp"
-            android:textSize="15dp"/>
+            android:textSize="15dp"
+            android:layout_marginTop="12dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/date_time"
-            android:paddingLeft="5dp"
             android:text="Just now"
             android:layout_toRightOf="@+id/profilePic"
             android:layout_below="@+id/title" />
@@ -47,7 +47,8 @@
             android:padding="8dp"
             android:text="#Flickpost"
             android:textColor="#666"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:layout_marginLeft="12dp"/>
 
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/picName"
@@ -55,12 +56,99 @@
             android:layout_height="250dp"
             android:layout_marginTop="5dp"
             android:layout_below="@+id/status_msg"
-            android:scaleType="centerCrop" />
-        <VideoView
+            android:scaleType="fitXY" />
+      <!--  <VideoView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/videoView"
-            android:layout_gravity="center" />
+            android:layout_gravity="center" /> -->
 
+        <View
+            android:layout_below="@id/picName"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#f1eeee"/>
+
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_below="@id/picName"
+            android:layout_marginTop="5dp"
+            android:background="#ffffff"
+            android:gravity="center" >
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Like"
+                android:background="#ffffff"
+                android:textAllCaps="false"
+                android:textColor="#333333"
+                android:textStyle="normal"/>
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Comment"
+                android:background="#ffffff"
+                android:textAllCaps="false"
+                android:textColor="#333333"
+                android:textStyle="normal"/>
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Share"
+                android:background="#ffffff"
+                android:textAllCaps="false"
+                android:textColor="#333333"
+                android:textStyle="normal"/>
+        </LinearLayout>
     </RelativeLayout>
+
+    <!-- <LinearLayout
+        android:id="@+id/invite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnInvitation"
+            android:layout_width="210dp"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content"
+            android:text="Like"
+            android:background="#ffffff"
+            android:textAllCaps="false"
+            android:textColor="#333333"
+            android:textStyle="normal"/>
+        <Button
+            android:layout_width="200dp"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content"
+            android:text="Comment"
+            android:textAllCaps="false"
+            android:background="#ffffff"
+            android:textColor="#333333"
+            android:textStyle="normal"/>
+        <Button
+            android:layout_width="200dp"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content"
+            android:text="Share"
+            android:textAllCaps="false"
+            android:background="#ffffff"
+            android:textColor="#333333"
+            android:textStyle="normal"/>
+    </LinearLayout> -->
 </android.support.v7.widget.CardView>

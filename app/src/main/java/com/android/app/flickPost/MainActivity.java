@@ -17,6 +17,7 @@ import com.roughike.bottombar.BottomBarFragment;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectedListener;
 
+
 import Helper.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         session = new SessionManager(getApplicationContext());
 
-        Log.d("UserID:",Integer.toString( session.getUserId()));
+        String UserId =  Integer.toString( session.getUserId());
         /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);*/
 

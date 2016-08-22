@@ -8,10 +8,39 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:id="@+id/invite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnInvitation"
+            android:layout_width="210dp"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content"
+            android:text="Invitations"
+            android:background="#333333"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textStyle="bold"/>
+        <Button
+            android:id="@+id/btnFriends"
+            android:layout_width="200dp"
+            android:layout_weight=".5"
+            android:layout_height="wrap_content"
+            android:text="Friends"
+            android:textAllCaps="false"
+            android:background="#333333"
+            android:textColor="#fff"
+            android:textStyle="bold"/>
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_friend"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/invite"
         android:scrollbars="vertical" />
 
 </RelativeLayout>

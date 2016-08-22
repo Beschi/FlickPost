@@ -89,7 +89,7 @@
                 android:clickable="true"
                 android:elevation="4dp"
                 android:padding="20dp"
-                android:text="Love to build innovative thing on the web" />
+                android:text="Kuala Lumpur, Malaysia" />
 
             <TextView
                 android:layout_width="fill_parent"
