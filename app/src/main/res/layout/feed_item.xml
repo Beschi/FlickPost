@@ -63,8 +63,88 @@
             android:id="@+id/videoView"
             android:layout_gravity="center" /> -->
 
-        <View
+        <RelativeLayout
+            android:id="@+id/feed_status"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/picName"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/one"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="center"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/like"
+                android:layout_marginLeft="5dp"/>
+
+            <ImageButton
+                android:id="@+id/two"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="center"
+                android:src="@drawable/love"
+                android:layout_toRightOf="@+id/one"
+                />
+            <ImageButton
+                android:id="@+id/three"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="center"
+                android:src="@drawable/sad"
+                android:layout_toRightOf="@id/two"/>
+            <TextView
+                android:id="@+id/likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textColor="#666"
+                android:textSize="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/three"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/comment_count"
+                android:text="1.5M"
+                android:textSize="13dp"
+                android:layout_toLeftOf="@+id/comment_txt"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/comment_txt"
+                android:text="Comments"
+                android:textSize="13dp"
+                android:layout_toLeftOf="@+id/share_count"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/share_count"
+                android:text="999"
+                android:textSize="13dp"
+                android:layout_toLeftOf="@+id/shares_txt"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/shares_txt"
+                android:text="Shares"
+                android:textSize="13dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"/>
+        </RelativeLayout>
+        <View
+            android:id="@+id/feed_div"
+            android:layout_below="@id/feed_status"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
@@ -77,7 +157,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1"
-            android:layout_below="@id/picName"
+            android:layout_below="@id/feed_div"
             android:layout_marginTop="5dp"
             android:background="#ffffff"
             android:gravity="center" >
