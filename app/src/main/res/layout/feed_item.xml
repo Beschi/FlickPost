@@ -77,7 +77,8 @@
                 android:scaleType="center"
                 android:layout_alignParentLeft="true"
                 android:src="@drawable/like"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"/>
 
             <ImageButton
                 android:id="@+id/two"
@@ -98,9 +99,9 @@
                 android:id="@+id/likes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10"
+                android:text="10.5K"
                 android:textColor="#666"
-                android:textSize="10dp"
+                android:textSize="13dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/three"/>
