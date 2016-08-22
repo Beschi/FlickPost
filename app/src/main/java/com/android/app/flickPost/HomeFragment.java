@@ -1,5 +1,6 @@
 package com.android.app.flickPost;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import com.android.volley.Cache;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
@@ -89,6 +91,10 @@ public class HomeFragment extends Fragment {
         final String url = "http://flickpost.net/api/feeds/getFeeds/"+userId+"/"+index+"/"+isTimeline;
         Log.d("Info","(fetchFreshData)Get Feed :"+url);
 
+        final ProgressDialog pDialog = new ProgressDialog(getContext());
+        pDialog.setMessage("Loading...");
+        pDialog.show();
+
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
         Cache.Entry entry = cache.get(url);
@@ -113,12 +119,15 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void onResponse(JSONArray response) {
                             if (response != null) {
+                                pDialog.hide();
                                 parseJsonFeed(response);
                             }
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d("Debug", "Error: " + error.getMessage());
+                    pDialog.hide();
                 }
             });
             // Adding request to volley request queue
