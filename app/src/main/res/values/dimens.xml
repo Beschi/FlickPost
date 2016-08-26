@@ -11,4 +11,9 @@
     <dimen name="card_bottom">8dp</dimen>
     <dimen name="list_item_avatar_size">40dp</dimen>
     <dimen name="card_margin">16dp</dimen>
+
+    <dimen name="comm_h_gap">10dip</dimen>
+    <dimen name="comm_h_margin">16dip</dimen>
+    <dimen name="comm_v_gap">10dip</dimen>
+    <dimen name="comm_v_margin">16dip</dimen>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarFragment;
@@ -92,10 +95,34 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         mBottomBar.onSaveInstanceState(outState);
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.addPost:
+                showStatusDlg();
+                return true;
+            case R.id.settings:
+                return true;
+            case R.id.signout:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    private void showStatusDlg() {
+        /*FragmentManager fm = getSupportFragmentManager();
+        Publish_Status publish_Status = new Publish_Status();
+        publish_Status.show(fm, "Status");*/
+
+        Intent intent = new Intent(this, Publish_Status.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
