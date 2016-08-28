@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.app.flickPost.FeedImageView;
 import com.android.app.flickPost.R;
@@ -33,6 +35,7 @@ import model.FeedItem;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
+    Context context;
     // Store a member variable for the contacts
     private List<FeedItem> mfeeds;
     // Pass in the contact array into the constructor
@@ -52,6 +55,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         public ImageLoader picLoader = AppController.getInstance().getImageLoader();
         public TextView message;
         public FeedImageView feedImageView;
+        public Button btnLike;
+        public Button btnComments;
+        public Button btnShare;
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
         public ViewHolder(View itemView) {
@@ -69,14 +75,18 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             avatar = (NetworkImageView) itemView.findViewById(R.id.profilePic);
             timeAgo = (TextView)itemView.findViewById(R.id.date_time);
             message = (TextView)itemView.findViewById(R.id.status_msg);
-
             feedImageView = (FeedImageView) itemView.findViewById(R.id.picName);
+            //click event
+            btnLike = (Button)itemView.findViewById(R.id.btnLike);
+            btnComments = (Button)itemView.findViewById(R.id.btnComments);
+            btnShare = (Button)itemView.findViewById(R.id.btnShare);
+
         }
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View feedView = inflater.inflate(R.layout.feed_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(feedView);
@@ -134,6 +144,32 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             else{
                 feedImageView.setVisibility(View.GONE);
             }
+
+            //click event
+            viewHolder.btnLike.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    /// button click event
+                    Toast.makeText(context,"like: 1", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            viewHolder.btnComments.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    /// button click event
+                    Toast.makeText(context,"btnComments : 1", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            viewHolder.btnShare.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    /// button click event
+                    Toast.makeText(context,"btnShare: 1", Toast.LENGTH_LONG).show();
+                }
+            });
+
         }
     }
 

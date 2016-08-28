@@ -76,7 +76,7 @@
                 android:id="@+id/likes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10.5K"
+                android:text="Likes 10.5K"
                 android:textColor="#666"
                 android:textSize="13dp"
                 android:layout_marginTop="7dp"
@@ -140,6 +140,7 @@
             android:gravity="center" >
 
             <Button
+                android:id="@+id/btnLike"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -150,6 +151,7 @@
                 android:textColor="#333333"
                 android:textStyle="normal"/>
             <Button
+                android:id="@+id/btnComments"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -160,6 +162,7 @@
                 android:textColor="#333333"
                 android:textStyle="normal"/>
             <Button
+                android:id="@+id/btnShare"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
