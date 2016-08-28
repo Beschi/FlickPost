@@ -8,7 +8,7 @@
     card_view:cardCornerRadius="0dp"
     android:layout_margin="5dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/layout_feeds"
         android:layout_width="match_parent"
         android:orientation="vertical"
@@ -63,11 +63,13 @@
             android:id="@+id/videoView"
             android:layout_gravity="center" /> -->
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/feed_status"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/picName"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -116,7 +118,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"/>
-        </LinearLayout>
+        </RelativeLayout>
         <View
             android:id="@+id/feed_div"
             android:layout_below="@id/feed_status"
@@ -168,7 +170,7 @@
                 android:textColor="#333333"
                 android:textStyle="normal"/>
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
     <!-- <LinearLayout
         android:id="@+id/invite"
