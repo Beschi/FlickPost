@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.app.flickPost.FeedImageView;
 import com.android.app.flickPost.R;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -50,7 +51,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         public ImageLoader imageLoader = AppController.getInstance().getImageLoader();
         public ImageLoader picLoader = AppController.getInstance().getImageLoader();
         public TextView message;
-        public NetworkImageView picName;
+        public FeedImageView feedImageView;
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
         public ViewHolder(View itemView) {
@@ -68,7 +69,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             avatar = (NetworkImageView) itemView.findViewById(R.id.profilePic);
             timeAgo = (TextView)itemView.findViewById(R.id.date_time);
             message = (TextView)itemView.findViewById(R.id.status_msg);
-            picName = (NetworkImageView) itemView.findViewById(R.id.picName);
+
+            feedImageView = (FeedImageView) itemView.findViewById(R.id.picName);
         }
     }
 
@@ -109,14 +111,28 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             }
             //feed image
             ImageLoader feedLoader = viewHolder.picLoader;
-            NetworkImageView picName= viewHolder.picName;
+            FeedImageView feedImageView = viewHolder.feedImageView;
             String pic = feed.getPicName();
             if(pic!=null && pic!="null") {
-                picName.setVisibility(View.VISIBLE);
-                picName.setImageUrl(feed.getPicName(), feedLoader);
+
+                feedImageView.setImageUrl(pic, feedLoader);
+                feedImageView.setVisibility(View.VISIBLE);
+                feedImageView
+                        .setResponseObserver(new FeedImageView.ResponseObserver() {
+                            @Override
+                            public void onError() {
+                            }
+
+                            @Override
+                            public void onSuccess() {
+                            }
+                        });
+
+                //picName.setVisibility(View.VISIBLE);
+                //picName.setImageUrl(feed.getPicName(), feedLoader);
             }
             else{
-                picName.setVisibility(View.GONE);
+                feedImageView.setVisibility(View.GONE);
             }
         }
     }

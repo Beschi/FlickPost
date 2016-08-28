@@ -8,9 +8,10 @@
     card_view:cardCornerRadius="0dp"
     android:layout_margin="5dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/layout_feeds"
         android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="match_parent">
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/profilePic"
@@ -50,51 +51,25 @@
             android:textSize="14dp"
             android:layout_marginLeft="12dp"/>
 
-        <com.android.volley.toolbox.NetworkImageView
+        <com.android.app.flickPost.FeedImageView
             android:id="@+id/picName"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginTop="5dp"
-            android:layout_below="@+id/status_msg"
-            android:scaleType="fitXY" />
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:layout_below="@+id/status_msg"/>
       <!--  <VideoView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/videoView"
             android:layout_gravity="center" /> -->
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/feed_status"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/picName"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/one"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:scaleType="center"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/like"
-                android:layout_marginLeft="5dp"
-                android:layout_marginBottom="5dp"/>
-
-            <ImageButton
-                android:id="@+id/two"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:scaleType="center"
-                android:src="@drawable/love"
-                android:layout_toRightOf="@+id/one"
-                />
-            <ImageButton
-                android:id="@+id/three"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:scaleType="center"
-                android:src="@drawable/sad"
-                android:layout_toRightOf="@id/two"/>
             <TextView
                 android:id="@+id/likes"
                 android:layout_width="wrap_content"
@@ -103,8 +78,7 @@
                 android:textColor="#666"
                 android:textSize="13dp"
                 android:layout_marginTop="7dp"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/three"/>
+                android:layout_marginLeft="5dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/comment_txt"
-                android:text="Comments"
+                android:text="comments"
                 android:textSize="13dp"
                 android:layout_toLeftOf="@+id/share_count"
                 android:layout_centerVertical="true"
@@ -137,12 +111,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/shares_txt"
-                android:text="Shares"
+                android:text="shares"
                 android:textSize="13dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"/>
-        </RelativeLayout>
+        </LinearLayout>
         <View
             android:id="@+id/feed_div"
             android:layout_below="@id/feed_status"
@@ -194,7 +168,7 @@
                 android:textColor="#333333"
                 android:textStyle="normal"/>
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
     <!-- <LinearLayout
         android:id="@+id/invite"
