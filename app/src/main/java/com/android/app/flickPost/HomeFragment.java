@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Helper.EndlessRecyclerOnScrollListener;
+import Helper.SessionManager;
 import adapter.FeedAdapter;
 import app.AppController;
 import model.FeedItem;
@@ -39,7 +40,9 @@ public class HomeFragment extends Fragment {
     private FeedAdapter feedAdapter;
     private LinearLayoutManager llm;
     private List<FeedItem> feedItems = new ArrayList<>();
-    private String USER_ID="4030";
+    private String USER_ID="0";
+    private SessionManager session;
+
     public HomeFragment() {
     }
 
@@ -58,6 +61,9 @@ public class HomeFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_home,container, false);
 
         RecyclerView rvItems = (RecyclerView)view.findViewById(R.id.feedView);
+
+        session = new SessionManager(getActivity());
+        USER_ID =  Integer.toString( session.getUserId());
 
         fetchFreshData(USER_ID,0,0);
         feedAdapter = new FeedAdapter(feedItems);

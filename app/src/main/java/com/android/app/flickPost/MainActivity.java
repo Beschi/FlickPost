@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, Publish_Status.class);
         startActivity(intent);
-        finish();
     }
 
 }

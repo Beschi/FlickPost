@@ -27,5 +27,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="publish_also_repost">Public</string>
-    <string name="title_new_status">Share</string>
+    <string name="title_new_status">New Status</string>
+    <string name="title_status_def">What\'s happening?</string>
+
 </resources>
